@@ -8,43 +8,51 @@ let tabela = document.getElementById("table");
 let input = document.querySelector("input");
 let formulario = document.querySelector("form");
 
+// -- OBJETOS --
+
+// -- ARRAY TAREFAS --
+const tarefas: Tarefa[] = []
+
 // Escutando eventos
 formulario.addEventListener("submit", adicionarTarefa);
-
-// Array de tarefas
-
-const tarefas: Tarefa[] = []
 
 // Funções
 
 function adicionarTarefa(evento) {
+    // interrompe envio padrão
     evento.preventDefault(); 
 
+    // limpa array, p/ evitar redundância
     while (tarefas.length > 0) {
+        // remove primeiro elemento 
         tarefas.shift();
     }
 
+    // evita que o input vazio seja enviado
     if (! (input.value == "")) {
     
-        let novaTarefa: Tarefa = {
-            feita: true,
-            texto: input.value,
-            prioridade: Prioridade.alta
-        }
+        // criando nova tarefa
+        const novaTarefa = new Tarefa(input.value, Prioridade.alta);
     
+        // add no array cada tarefa
         tarefas.push(novaTarefa);
     
+        // chama a função com a tarefa recém criada
         exibirTarefa(tarefas);
+
+        // limpa input após tarefa ser enviada
         input.value = "";
     };
 }
 
 function exibirTarefa(tarefas:Tarefa[]) {
+    // cria um "tr" (table > tr > td)
+    let tr = document.createElement("tr");    
 
-    let tr = document.createElement("tr");
-    
+    // para cada elemento do array tarefas
     for (let tarefa of tarefas) {
 
+        // cria elementos para colocar na tr criada 
         tr.innerHTML = `<td>
                             <input type="checkbox">
                         </td>
@@ -55,25 +63,9 @@ function exibirTarefa(tarefas:Tarefa[]) {
                             <i class="material-icons">delete</i>
                         </td>
                             `
+        // coloca a tr na tabela  
         tabela.appendChild(tr);
     }
-
-    // Riscando tarefa feita
-    let checkbox = tr.querySelector("input");
-    
-    checkbox.addEventListener("click", () => {
-        tr.classList.toggle("done");
-    });
-
-    // Removendo tarefa ao clicar no icone de remoção
-    let remover = tr.querySelector("i");
-
-    remover.addEventListener("click", () => {
-        tr.remove();
-    });
 }
 
 // Consoles log
-
-console.log(tabela);
-console.log(input);
