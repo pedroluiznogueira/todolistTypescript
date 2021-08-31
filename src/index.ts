@@ -57,6 +57,12 @@ function exibirTarefa(tarefas:Tarefa[]) {
                             `
         tabela.appendChild(tr);
     }
+
+    let checkbox = tr.querySelector("input");
+
+    checkbox.addEventListener("click", () => {
+        tr.classList.toggle("done");
+    })
 }
 
 // Consoles log
