@@ -4,28 +4,47 @@ import "material-icons/iconfont/material-icons.css";
 import { Tarefa, Prioridade } from "./models/Tarefa";
 
 // Seletores
-let tabela = document.querySelector("#table");
+let tabela = document.getElementById("table");
+let input = document.querySelector("input");
+let formulario = document.querySelector("form");
 
-// Objetos
-const tarefas: Tarefa[] = [  
-    {
-        feita: true,
-        texto: "Estudar TS",
-        prioridade: Prioridade.baixa
-    },
-    {
-        feita: false,
-        texto: "Estudar Angular",
-        prioridade: Prioridade.alta
+// Escutando eventos
+formulario.addEventListener("submit", adicionarTarefa);
+
+// Array de tarefas
+
+const tarefas: Tarefa[] = []
+
+// Funções
+
+function adicionarTarefa(evento) {
+    evento.preventDefault(); 
+
+    while (tarefas.length > 0) {
+        tarefas.shift();
     }
-]
 
-// Funções 
+    if (! (input.value == "")) {
+    
+        let novaTarefa: Tarefa = {
+            feita: true,
+            texto: input.value,
+            prioridade: Prioridade.alta
+        }
+    
+        tarefas.push(novaTarefa);
+    
+        exibirTarefa(tarefas);
+        input.value = "";
+    };
+}
 
-function exibirTarefa(tarefas: Tarefa[]) {
+function exibirTarefa(tarefas:Tarefa[]) {
 
+    let tr = document.createElement("tr");
+    
     for (let tarefa of tarefas) {
-        let tr = document.querySelector("tr");
+
         tr.innerHTML = `<td>
                             <input type="checkbox">
                         </td>
@@ -36,12 +55,11 @@ function exibirTarefa(tarefas: Tarefa[]) {
                             <i class="material-icons">delete</i>
                         </td>
                             `
-    tabela.appendChild(tr);
+        tabela.appendChild(tr);
     }
 }
-
-exibirTarefa(tarefas);
 
 // Consoles log
 
 console.log(tabela);
+console.log(input);
