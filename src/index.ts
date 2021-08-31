@@ -45,26 +45,10 @@ function adicionarTarefa(evento) {
     };
 }
 
-function exibirTarefa(tarefas:Tarefa[]) {
-    // cria um "tr" (table > tr > td)
-    let tr = document.createElement("tr");    
+function exibirTarefa(tarefas:Tarefa[]) { 
 
-    // para cada elemento do array tarefas
     for (let tarefa of tarefas) {
-
-        // cria elementos para colocar na tr criada 
-        tr.innerHTML = `<td>
-                            <input type="checkbox">
-                        </td>
-                        <td>
-                            ${tarefa.texto}
-                        </td>
-                        <td>
-                            <i class="material-icons">delete</i>
-                        </td>
-                            `
-        // coloca a tr na tabela  
-        tabela.appendChild(tr);
+        tabela.appendChild(tarefa.toRow());
     }
 }
 

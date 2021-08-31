@@ -10,6 +10,30 @@ export class Tarefa {
         this.texto = texto;
         this.prioridade = prioridade;
     }
+
+    toRow(): HTMLTableRowElement {
+        let tr = document.createElement("tr");  
+
+        tr.className = this.feita ? "done" : "";
+
+        tr.innerHTML = `<td><input type="checkbox"></td>
+                        <td>${this.texto}</td>
+                        <td><i class="material-icons">delete</i></td>
+        `;
+
+        let checkbox = tr.querySelector("input");
+        checkbox.addEventListener("click", () => {
+            tr.classList.toggle("done");
+        });
+
+        let bt = tr.querySelector("i");
+        bt.addEventListener("click", () => {
+            tr.remove();
+        });
+
+        return tr;
+        
+    }
 }
 
 // enum para prioridades
