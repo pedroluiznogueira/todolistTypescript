@@ -58,11 +58,19 @@ function exibirTarefa(tarefas:Tarefa[]) {
         tabela.appendChild(tr);
     }
 
+    // Riscando tarefa feita
     let checkbox = tr.querySelector("input");
-
+    
     checkbox.addEventListener("click", () => {
         tr.classList.toggle("done");
-    })
+    });
+
+    // Removendo tarefa ao clicar no icone de remoção
+    let remover = tr.querySelector("i");
+
+    remover.addEventListener("click", () => {
+        tr.remove();
+    });
 }
 
 // Consoles log
