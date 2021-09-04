@@ -11,7 +11,7 @@ export class ListaDeTarefa {
         this.tabela = <HTMLTableElement>main.querySelector("#table")!;
         this.input = <HTMLInputElement>main.querySelector("input")!;
         this.formulario = <HTMLFormElement>main.querySelector("form")!;
-        this.tarefas = [];
+        this.tarefas = []; 
 
         this.formulario.addEventListener("submit", (e) => {
             e.preventDefault();
@@ -20,6 +20,7 @@ export class ListaDeTarefa {
     }
 
     removerTarefa(novaTarefa: Tarefa) {
+        document.getElementById(novaTarefa.id).remove();
         this.tarefas.splice(this.tarefas.indexOf(novaTarefa), 1);
     }
 
@@ -37,14 +38,12 @@ export class ListaDeTarefa {
 
     mostrarTarefas(novaTarefa: Tarefa): void {
         let tr = novaTarefa.toRow();
-
-        tr.querySelector("i").addEventListener("click", () => {
-            tr.remove();
+        let icon = tr.querySelector("i");
+        
+        icon.addEventListener("click", () => {
             this.removerTarefa(novaTarefa);
         })
 
         this.tabela.appendChild(tr);
     }
-
-
 }
