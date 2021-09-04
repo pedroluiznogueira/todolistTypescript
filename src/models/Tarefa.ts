@@ -14,8 +14,6 @@ export class Tarefa {
     toRow(): HTMLTableRowElement {
         let tr = document.createElement("tr");  
 
-        tr.className = this.feita ? "done" : "";
-
         tr.innerHTML = `<td><input type="checkbox"></td>
                         <td>${this.texto}</td>
                         <td><i class="material-icons">delete</i></td>
@@ -24,11 +22,6 @@ export class Tarefa {
         let checkbox = tr.querySelector("input");
         checkbox.addEventListener("click", () => {
             tr.classList.toggle("done");
-        });
-
-        let bt = tr.querySelector("i");
-        bt.addEventListener("click", () => {
-            tr.remove();
         });
 
         return tr;
@@ -42,12 +35,3 @@ export enum Prioridade {
     media = 2,
     alta = 3
 }
-
-// -- OBJETOS --
-const tarefaUm = new Tarefa("Acordar cedo", Prioridade.alta);
-
-// -- DEBUGANDO --
-console.log(tarefaUm);
-console.log(tarefaUm.feita);
-console.log(tarefaUm.texto);
-console.log(tarefaUm.prioridade);
