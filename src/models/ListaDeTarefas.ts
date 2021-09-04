@@ -1,3 +1,4 @@
+import { convertCompilerOptionsFromJson } from "../../node_modules/typescript/lib/typescript";
 import { Prioridade, Tarefa } from "./Tarefa";
 
 export class ListaDeTarefa {
@@ -29,6 +30,12 @@ export class ListaDeTarefa {
 
         this.tarefas.push(novaTarefa);
 
+        this.mostrarTarefas(novaTarefa);
+
+        this.input.value = "";
+    }
+
+    mostrarTarefas(novaTarefa: Tarefa): void {
         let tr = novaTarefa.toRow();
 
         tr.querySelector("i").addEventListener("click", () => {
@@ -37,8 +44,7 @@ export class ListaDeTarefa {
         })
 
         this.tabela.appendChild(tr);
-
-        this.input.value = "";
     }
+
 
 }
