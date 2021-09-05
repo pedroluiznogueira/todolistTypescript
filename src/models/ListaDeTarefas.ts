@@ -14,6 +14,27 @@ export class ListaDeTarefa {
         this.formulario = <HTMLFormElement>main.querySelector("#form");
         this.tarefas = [];
 
+        let dados = window.localStorage.getItem("todolistPedro");
+
+        if (dados == null) {
+            // na hora que a aplicação for inializada, inicia o localStorage com essa string ->"[]"<-
+            window.localStorage.setItem("todolistPedro", "[]");
+
+        } else {
+            // parseando o array e atribuindo com as devidas características para o array de tarefas
+            this.tarefas = JSON.parse(dados).map(
+                // para tarefa iterada, eu faço uma cópia com as características que preciso 
+                tarefa => {
+                    // acessando os atributos texto e prioridade de cada tarefa que está no localStorage
+                    let novaTarefa = new Tarefa(tarefa.texto, tarefa.prioridade);
+                    // atribuindo o id da tarefa que está no localStorage para o arrau de tarefas
+                    novaTarefa.id = tarefa.id;
+                    
+                    return novaTarefa;
+                }
+            )
+        }
+
         // Referencia o array de parseado mapeado
         this.mostrarTarefas();
 
@@ -25,6 +46,7 @@ export class ListaDeTarefa {
 
     removerTarefa(novaTarefa: Tarefa) {
         this.tarefas.splice(this.tarefas.indexOf(novaTarefa), 1);
+        window.localStorage.setItem("todolistPedro", JSON.stringify(this.tarefas));
         document.getElementById(novaTarefa.id).remove();
 
     }
@@ -35,6 +57,9 @@ export class ListaDeTarefa {
         let novaTarefa = new Tarefa(this.input.value, Prioridade.baixa);
 
         this.tarefas.push(novaTarefa);
+
+        // Salvando no local storage cada tarefa como uma string, pois o localStorage só armazena strings
+        window.localStorage.setItem("todolistPedro", JSON.stringify(this.tarefas));
 
         // Função que a mostrarTarefas anteriormente fazia
         let tr = novaTarefa.toRow();
