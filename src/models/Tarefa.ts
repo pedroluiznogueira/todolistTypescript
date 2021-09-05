@@ -1,12 +1,14 @@
 // --  ESTRUTURAS --
 import * as uniqid from "uniqid";
 export class Tarefa {
+    
     feita: boolean;
     texto: string;
     prioridade: Prioridade;
     id: string;
 
     constructor(texto: string, prioridade: Prioridade) {
+
         this.feita = false;
         this.texto = texto;
         this.prioridade = prioridade;
@@ -17,7 +19,8 @@ export class Tarefa {
         let tr = document.createElement("tr");  
         tr.setAttribute("id", this.id);
 
-        tr.innerHTML = `<td><input type="checkbox"></td>
+        tr.innerHTML = `
+                        <td><input type="checkbox"></td>
                         <td>${this.texto}</td>
                         <td><i class="material-icons">delete</i></td>
         `;
