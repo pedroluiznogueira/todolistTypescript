@@ -1,5 +1,6 @@
 // --  ESTRUTURAS --
 import * as uniqid from "uniqid";
+import { Prioridade } from "./Prioridade";
 export class Tarefa {
     
     feita: boolean;
@@ -33,11 +34,4 @@ export class Tarefa {
         return tr;
         
     }
-}
-
-// enum para prioridades
-export enum Prioridade {
-    baixa = 1,
-    media = 2,
-    alta = 3
 }

@@ -1,4 +1,5 @@
-import { Prioridade, Tarefa } from "./Tarefa";
+import { Tarefa } from "./Tarefa";
+import { Prioridade } from "./Prioridade";
 
 export class ListaDeTarefa {
 
@@ -40,6 +41,7 @@ export class ListaDeTarefa {
 
         this.formulario.addEventListener("submit", (e) => {
             e.preventDefault();
+
             this.adicionarTarefa();
         })
     }
@@ -54,7 +56,9 @@ export class ListaDeTarefa {
     adicionarTarefa() {
         if (this.input.value == "") return;
 
-        let novaTarefa = new Tarefa(this.input.value, Prioridade.baixa);
+        let nivelPrioridade = this.input.value.match(/^#(1|2|3)\s/).shift();
+
+        let novaTarefa = this.adicionarPrioridade(nivelPrioridade);
 
         this.tarefas.push(novaTarefa);
 
@@ -90,5 +94,25 @@ export class ListaDeTarefa {
 
             this.tabela.appendChild(tr);
         })
+    }
+
+    adicionarPrioridade(nivelPrioridade: string): Tarefa {
+
+        if (nivelPrioridade == "#1 ") {
+            let novaTarefa = new Tarefa(this.input.value.slice(3), Prioridade.baixa);
+            console.log("Prioridade baixa")
+            return novaTarefa;
+
+        } else if (nivelPrioridade == "#2 ") {
+            let novaTarefa = new Tarefa(this.input.value.slice(3), Prioridade.media);
+            console.log("Prioridade media")
+            return novaTarefa;
+
+        } else {
+            let novaTarefa = new Tarefa(this.input.value.slice(3), Prioridade.alta);
+            console.log("Prioridade alta")
+            return novaTarefa;
+
+        }
     }
 }
